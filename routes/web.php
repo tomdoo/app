@@ -21,7 +21,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/account/informations', 'AccountController@informations')->name('account.informations');
 Route::get('/account/subscriptions', 'AccountController@subscriptions')->name('account.subscriptions');
-Route::get('/clubs', 'ClubsController@index')->name('clubs');
+ Route::get('/clubs', 'ClubsController@index')->name('clubs');
 Route::get('/events', 'EventsController@index')->name('events');
 Route::get('/messenger', 'MessengerController@index')->name('messenger');
 Route::get('/faq', 'FaqController@index')->name('faq');
