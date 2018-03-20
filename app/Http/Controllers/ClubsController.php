@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class InstitutionsController extends Controller
+class ClubsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,6 +23,6 @@ class InstitutionsController extends Controller
      */
     public function index()
     {
-        return view('institutions/index');
+        return view('clubs/index');
     }
 }

@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h1>Notifications</h1>
+    <h1>Clubs</h1>
     <div class="row">
         <div class="col-xs-12">
-            Liste des notifications
+            <p>Liste des clubs</p>
         </div>
     </div>
 </div>

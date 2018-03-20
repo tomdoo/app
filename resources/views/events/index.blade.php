@@ -2,15 +2,10 @@
 
 @section('content')
 <div class="container">
+    <h1>Événements</h1>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Événements</div>
-
-                <div class="panel-body">
-                    Mes futurs événements
-                </div>
-            </div>
+        <div class="col-xs-12">
+            <p>Liste des événéments</p>
         </div>
     </div>
 </div>

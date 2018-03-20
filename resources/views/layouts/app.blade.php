@@ -80,7 +80,7 @@
                             Menu <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('events') }}">Événements</a></li>
-                            <li><a href="{{ route('institutions') }}">Clubs</a></li>
+                            <li><a href="{{ route('clubs') }}">Clubs</a></li>
                             <li><a href="{{ route('messenger') }}">Messagerie</a></li>
                             <li><a href="{{ route('account.informations') }}">Mon profil</a></li>
                             <li><a href="{{ route('account.subscriptions') }}">Mes abonnements</a></li>
@@ -92,7 +92,7 @@
                         <a class="btn btn-default" href="{{ route('events') }}">Événements</a>
                     </div>
                     <div class="btn-group" role="group">
-                        <a class="btn btn-default" href="{{ route('institutions') }}">Clubs</a>
+                        <a class="btn btn-default" href="{{ route('clubs') }}">Clubs</a>
                     </div>
                     <div class="btn-group" role="group">
                         <a class="btn btn-default" href="{{ route('messenger') }}">Notifications</a>

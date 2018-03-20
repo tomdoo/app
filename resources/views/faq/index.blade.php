@@ -2,15 +2,10 @@
 
 @section('content')
 <div class="container">
+    <h1>FAQ</h1>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">FAQ</div>
-
-                <div class="panel-body">
-                    Voilà toutes les questions que des boulets comme moi ont déjà posé
-                </div>
-            </div>
+        <div class="col-xs-12">
+            Liste des questions et réponses
         </div>
     </div>
 </div>

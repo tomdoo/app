@@ -31,8 +31,4 @@ class AccountController extends Controller
         return view('account/subscriptions');
     }
 
-    public function institutions()
-    {
-        return view('account/institutions');
-    }
 }
