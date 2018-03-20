@@ -1,0 +1,15 @@
+{
+  "short_name": "UpSession",
+  "name": "UpSession",
+  "icons": [
+    {
+      "src": "/img/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#fff",
+  "theme_color": "#fff",
+  "display": "standalone"
+}
