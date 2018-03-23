@@ -50,11 +50,10 @@ class LoginController extends Controller
         $social = Socialite::driver($provider)->user();
         $user = User::where('email', $social->email)->first();
         if (!is_null($user)) {
-            dd($user);
-            \auth()->login($user, true);
             $user->provider = $provider;
             $user->provider_id = $social->id;
             $user->save();
+            \auth()->login($user, true);
         } else {
             $user = User::create([
                 'name' => $social->name,
