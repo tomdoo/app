@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateUsersTable extends Migration
+class CreateClubTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('provider')->nullable();
-            $table->string('provider_id')->nullable();
-            $table->string('password')->nullable()->change();
+        Schema::create('club_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+
+            $table->string('name', 30);
         });
     }
 
@@ -27,6 +28,6 @@ class UpdateUsersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('club_types');
     }
 }

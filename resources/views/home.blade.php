@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-xs-12">
             <a class="btn btn-primary btn-lg btn-block" href="{{ route('login') }}">Se connecter</a>
-            <a class="btn btn-default btn-lg btn-block" href="{{ route('register') }}">Créer un compte</a>
+            <a class="btn btn-default btn-md btn-block" href="{{ route('register') }}">Créer un compte</a>
         </div>
     </div>
 </div>
