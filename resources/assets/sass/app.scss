@@ -8,7 +8,14 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+#app {
+	padding-bottom: 50px;
+}
 #nav-primary {
 	position: fixed;
 	bottom: 0;
+	z-index: 2;
+}
+#app > .container {
+	z-index: 1;
 }
