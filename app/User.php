@@ -26,4 +26,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function clubs()
+    {
+        return $this->belongsToMany('App\Club', 'users_clubs')
+            ->withPivot('role')
+            ->withTimestamps();
+    }
+
+    public function ownedClubs()
+    {
+        return $this->belongsToMany('App\Club', 'users_clubs')
+            ->withPivot('role')
+            ->withTimestamps()
+            ->wherePivot('role', 'owner');
+    }
+
+    public function memberedClubs()
+    {
+        return $this->belongsToMany('App\Club', 'users_clubs')
+            ->withPivot('role')
+            ->withTimestamps()
+            ->wherePivot('role', 'member');
+    }
 }

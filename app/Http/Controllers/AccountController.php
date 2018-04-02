@@ -41,6 +41,7 @@ class AccountController extends Controller
             $user->email = $request->input('email');
             $user->firstname = $request->input('firstname');
             $user->lastname = $request->input('lastname');
+            $user->name = trim($user->firstname.' '.$user->lastname);
             $user->birth_date = $request->input('birth_date');
             $user->sex = $request->input('sex');
             $user->phone = $request->input('phone');

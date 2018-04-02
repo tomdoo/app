@@ -24,9 +24,19 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/account/informations', 'AccountController@informations')->name('account.informations');
 Route::post('/account/informations', 'AccountController@informations')->name('account.informations');
 
+// clubs
+Route::get('/clubs', 'ClubsController@index')->name('clubs');
+Route::get('/clubs/view/{clubId}', 'ClubsController@view')->name('clubs.view');
+Route::get('/clubs/create', 'ClubsController@create')->name('clubs.create');
+Route::post('/clubs/create', 'ClubsController@create')->name('clubs.create');
+Route::get('/clubs/edit/{clubId}', 'ClubsController@edit')->name('clubs.edit');
+Route::post('/clubs/edit/{clubId}', 'ClubsController@edit')->name('clubs.edit');
+Route::get('/clubs/delete/{clubId}', 'ClubsController@delete')->name('clubs.delete');
+Route::get('/clubs/member', 'ClubsController@member')->name('clubs.member');
+Route::post('/clubs/member', 'ClubsController@member')->name('clubs.member');
+
 Route::get('/account/subscriptions', 'AccountController@subscriptions')->name('account.subscriptions');
 
-Route::get('/clubs', 'ClubsController@index')->name('clubs');
 Route::get('/events', 'EventsController@index')->name('events');
 Route::get('/messenger', 'MessengerController@index')->name('messenger');
 Route::get('/faq', 'FaqController@index')->name('faq');

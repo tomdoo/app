@@ -48,7 +48,7 @@
                     </select>
                     {!! $errors->first('sex', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group {{ $errors->has('sex') ? 'has-error' : '' }}">
+                <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                     <label for="phone">Numéro de téléphone</label>
                     <input type="text" class="form-control" placeholder="Numéro de téléphone" value="{{ old('phone', $user->phone) }}" name="phone" />
                     {!! $errors->first('phone', '<span class="help-block">:message</span>') !!}
