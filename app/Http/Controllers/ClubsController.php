@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Club;
 use App\ClubType;
+use App\Country;
 
 class ClubsController extends Controller
 {
@@ -74,25 +75,45 @@ class ClubsController extends Controller
     {
         $user = User::find(Auth::user()->id);
         $club = $user->ownedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect('clubs')
+                ->with('status', 'Accès interdit');
+        }
 
         if ($request->isMethod('post')) {
             $this->validate($request, [
                 'name' => 'bail|required',
-                'access_code' => 'bail|nullable|alpha_num',
                 'club_type_id' => 'bail|required|numeric',
+                'description' => 'bail|nullable',
+                'owner_alias' => 'bail|nullable',
+                'address' => 'bail|nullable',
+                'postcode' => 'bail|nullable',
+                'city' => 'bail|nullable',
+                'country_id' => 'bail|nullable',
+                'phone' => 'bail|nullable|numeric',
+                'access_code' => 'bail|nullable|alpha_num',
             ]);
             $club->name = $request->input('name');
-            $club->access_code = $request->input('access_code');
             $club->club_type_id = $request->input('club_type_id');
+            $club->description = $request->input('description');
+            $club->owner_alias = $request->input('owner_alias');
+            $club->address = $request->input('address');
+            $club->postcode = $request->input('postcode');
+            $club->city = $request->input('city');
+            $club->country_id = $request->input('country_id');
+            $club->phone = $request->input('phone');
+            $club->access_code = $request->input('access_code');
             $club->save();
             return redirect('clubs/view/'.$club->id)
                 ->with('status', 'Club créé');
         }
 
         $clubTypes = ClubType::all();
+        $countries = Country::all();
         return view('clubs/edit', [
             'club' => $club,
             'clubTypes' => $clubTypes,
+            'countries' => $countries,
         ]);
     }
 

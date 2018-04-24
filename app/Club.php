@@ -16,11 +16,21 @@ class Club extends Model
         return $this->belongsTo('App\ClubType');
     }
 
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+
     public function users()
     {
         return $this->belongsToMany('\App\User', 'users_clubs')
             ->withPivot('role')
             ->withTimestamps();
+    }
+
+    public function events()
+    {
+        return $this->hasMany('\App\Event');
     }
 
     public function owners()

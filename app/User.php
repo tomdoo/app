@@ -42,6 +42,14 @@ class User extends Authenticatable
             ->wherePivot('role', 'owner');
     }
 
+    public function administratedClubs()
+    {
+        return $this->belongsToMany('App\Club', 'users_clubs')
+            ->withPivot('role')
+            ->withTimestamps()
+            ->wherePivot('role', 'administrator');
+    }
+
     public function memberedClubs()
     {
         return $this->belongsToMany('App\Club', 'users_clubs')

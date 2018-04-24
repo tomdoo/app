@@ -34,10 +34,14 @@ Route::post('/clubs/edit/{clubId}', 'ClubsController@edit')->name('clubs.edit');
 Route::get('/clubs/delete/{clubId}', 'ClubsController@delete')->name('clubs.delete');
 Route::get('/clubs/member', 'ClubsController@member')->name('clubs.member');
 Route::post('/clubs/member', 'ClubsController@member')->name('clubs.member');
+// events
+Route::get('/events', 'EventsController@index')->name('events');
+Route::get('/events/view/{eventId}', 'EventsController@view')->name('events.view');
+Route::get('/events/create/{clubId?}', 'EventsController@create')->name('events.create');
+Route::post('/events/create/{clubId?}', 'EventsController@create')->name('events.create');
 
 Route::get('/account/subscriptions', 'AccountController@subscriptions')->name('account.subscriptions');
 
-Route::get('/events', 'EventsController@index')->name('events');
 Route::get('/messenger', 'MessengerController@index')->name('messenger');
 Route::get('/faq', 'FaqController@index')->name('faq');
 

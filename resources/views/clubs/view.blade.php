@@ -13,6 +13,34 @@
                     <dt>Code d'accès</dt>
                     <dd>{{ $club->access_code }}</dd>
                 @endif
+                @if ($club->description)
+                    <dt>Description</dt>
+                    <dd>{{ $club->description }}</dd>
+                @endif
+                @if ($club->owner_alias)
+                    <dt>Nom du responsable</dt>
+                    <dd>{{ $club->owner_alias }}</dd>
+                @endif
+                @if ($club->address)
+                    <dt>Adresse</dt>
+                    <dd>{{ $club->address }}</dd>
+                @endif
+                @if ($club->postcode)
+                    <dt>Code postal</dt>
+                    <dd>{{ $club->postcode }}</dd>
+                @endif
+                @if ($club->city)
+                    <dt>Ville</dt>
+                    <dd>{{ $club->city }}</dd>
+                @endif
+                @if ($club->country)
+                    <dt>Pays</dt>
+                    <dd>{{ $club->country->name }}</dd>
+                @endif
+                @if ($club->phone)
+                    <dt>Numéro de téléphone</dt>
+                    <dd>{{ $club->phone }}</dd>
+                @endif
             </dl>
         </div>
     </div>
