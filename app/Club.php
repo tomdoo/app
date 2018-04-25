@@ -33,6 +33,11 @@ class Club extends Model
         return $this->hasMany('\App\Event');
     }
 
+    public function photos()
+    {
+        return $this->hasMany('\App\ClubPhoto');
+    }
+
     public function owners()
     {
         return $this->belongsToMany('App\User', 'users_clubs')

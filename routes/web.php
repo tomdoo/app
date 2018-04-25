@@ -34,6 +34,10 @@ Route::post('/clubs/edit/{clubId}', 'ClubsController@edit')->name('clubs.edit');
 Route::get('/clubs/delete/{clubId}', 'ClubsController@delete')->name('clubs.delete');
 Route::get('/clubs/member', 'ClubsController@member')->name('clubs.member');
 Route::post('/clubs/member', 'ClubsController@member')->name('clubs.member');
+Route::post('/clubs/addPhoto/{clubId}', 'ClubsController@addPhoto')->name('clubs.addPhoto');
+Route::get('/clubs/getPhoto/{clubId}/{clubPhotoId}', 'ClubsController@getPhoto')->name('clubs.getPhoto');
+Route::get('/clubs/setPrimaryPhoto/{clubId}/{clubPhotoId}', 'ClubsController@setPrimaryPhoto')->name('clubs.setPrimaryPhoto');
+Route::get('/clubs/deletePhoto/{clubId}/{clubPhotoId}', 'ClubsController@deletePhoto')->name('clubs.deletePhoto');
 // events
 Route::get('/events', 'EventsController@index')->name('events');
 Route::get('/events/view/{eventId}', 'EventsController@view')->name('events.view');

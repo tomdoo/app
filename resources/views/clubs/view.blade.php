@@ -7,6 +7,35 @@
     <div class="row">
         <div class="col-xs-12">
             <dl class="dl-horizontal">
+                <dt>Photos</dt>
+                <dd>
+                    @if ($club->photos->count())
+                        <div class="row">
+                            @foreach ($club->photos as $photo)
+                                <div class="col-xs-4">
+                                    <div class="thumbnail">
+                                        <img src="{{ route('clubs.getPhoto', [$club->id, $photo->id]) }}" height="100" />
+                                        <div class="caption">
+                                            <p>
+                                                <a href="{{ route('clubs.setPrimaryPhoto', [$club->id, $photo->id]) }}" class="btn btn-{{ $photo->primary ? 'primary' : 'default' }}">Photo principale</a>
+                                                <a href="{{ route('clubs.deletePhoto', [$club->id, $photo->id]) }}" class="btn btn-danger">Supprimer</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('clubs.addPhoto', $club->id) }}">
+                        {{ csrf_field() }}
+                        <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
+                            <label for="file">Ajouter une photo</label>
+                            <input type="file" class="form-control" placeholder="Ajouter une photo" name="file" />
+                            {!! $errors->first('file', '<span class="help-block">:message</span>') !!}
+                        </div>
+                        <button type="submit" class="btn btn-default btn-block">Ajouter</button>
+                    </form>
+                </dd>
                 <dt>Type de club</dt>
                 <dd>{{ $club->clubType->name }}</dd>
                 @if ($club->owners->contains($user->id) || $club->administrators->contains($user->id))

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\User;
 use App\Club;
 use App\ClubType;
 use App\Country;
+use App\ClubPhoto;
 
 class ClubsController extends Controller
 {
@@ -115,6 +117,47 @@ class ClubsController extends Controller
             'clubTypes' => $clubTypes,
             'countries' => $countries,
         ]);
+    }
+
+    public function addPhoto($clubId, Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $club = $user->ownedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect('clubs')
+                ->with('status', 'Accès interdit');
+        }
+
+        if ($request->isMethod('post')) {
+            $this->validate($request, [
+                'file' => 'bail|image|required', // todo : validate file size
+            ]);
+            if ($request->file('file')->isValid()) {
+                $clubPhoto = new ClubPhoto();
+                $clubPhoto->club_id = $club->id;
+                $clubPhoto->file = $request->file('file')->store('clubPhotos');
+                $clubPhoto->save();
+                return redirect('clubs/view/'.$club->id)
+                    ->with('status', 'Photo ajoutée');
+            }
+        }
+        return redirect('clubs/view/'.$club->id)
+            ->with('status', 'Erreur lors de l\'ajout de la photo');
+    }
+
+    public function getPhoto($clubId, $clubPhotoId, Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $club = $user->ownedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect('clubs')
+                ->with('status', 'Accès interdit');
+        }
+
+        $photo = $club->photos()->find($clubPhotoId);
+        if (!empty($photo)) {
+            return response()->file(Storage::path($photo->file));
+        }
     }
 
     public function delete($clubId)
