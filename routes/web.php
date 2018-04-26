@@ -38,6 +38,8 @@ Route::post('/clubs/addPhoto/{clubId}', 'ClubsController@addPhoto')->name('clubs
 Route::get('/clubs/getPhoto/{clubId}/{clubPhotoId}', 'ClubsController@getPhoto')->name('clubs.getPhoto');
 Route::get('/clubs/setPrimaryPhoto/{clubId}/{clubPhotoId}', 'ClubsController@setPrimaryPhoto')->name('clubs.setPrimaryPhoto');
 Route::get('/clubs/deletePhoto/{clubId}/{clubPhotoId}', 'ClubsController@deletePhoto')->name('clubs.deletePhoto');
+Route::post('/clubs/addAdministrator/{clubId}', 'ClubsController@addAdministrator')->name('clubs.addAdministrator');
+
 // events
 Route::get('/events', 'EventsController@index')->name('events');
 Route::get('/events/view/{eventId}', 'EventsController@view')->name('events.view');

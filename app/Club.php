@@ -35,7 +35,9 @@ class Club extends Model
 
     public function photos()
     {
-        return $this->hasMany('\App\ClubPhoto');
+        return $this->hasMany('\App\ClubPhoto')
+            ->orderBy('primary', 'desc')
+            ->orderBy('created_at', 'desc');
     }
 
     public function owners()
@@ -43,7 +45,8 @@ class Club extends Model
         return $this->belongsToMany('App\User', 'users_clubs')
             ->withPivot('role')
             ->withTimestamps()
-            ->wherePivot('role', 'owner');
+            ->wherePivot('role', 'owner')
+            ->orderBy('name');
     }
 
     public function administrators()
@@ -51,7 +54,8 @@ class Club extends Model
         return $this->belongsToMany('App\User', 'users_clubs')
             ->withPivot('role')
             ->withTimestamps()
-            ->wherePivot('role', 'administrator');
+            ->wherePivotIn('role', ['administrator', 'owner'])
+            ->orderBy('name');
     }
 
     public function members()
@@ -59,6 +63,7 @@ class Club extends Model
         return $this->belongsToMany('App\User', 'users_clubs')
             ->withPivot('role')
             ->withTimestamps()
-            ->wherePivot('role', 'member');
+            ->wherePivotIn('role', ['member', 'administrator', 'owner'])
+            ->orderBy('name');
     }
 }

@@ -15,30 +15,34 @@
                                 <div class="col-xs-4">
                                     <div class="thumbnail">
                                         <img src="{{ route('clubs.getPhoto', [$club->id, $photo->id]) }}" height="100" />
-                                        <div class="caption">
-                                            <p>
-                                                <a href="{{ route('clubs.setPrimaryPhoto', [$club->id, $photo->id]) }}" class="btn btn-{{ $photo->primary ? 'primary' : 'default' }}">Photo principale</a>
-                                                <a href="{{ route('clubs.deletePhoto', [$club->id, $photo->id]) }}" class="btn btn-danger">Supprimer</a>
-                                            </p>
-                                        </div>
+                                        @if ($club->administrators->contains($user->id))
+                                            <div class="caption">
+                                                <p>
+                                                    <a href="{{ route('clubs.setPrimaryPhoto', [$club->id, $photo->id]) }}" class="btn btn-{{ $photo->primary ? 'primary' : 'default' }}">Photo principale</a>
+                                                    <a href="{{ route('clubs.deletePhoto', [$club->id, $photo->id]) }}" class="btn btn-danger">Supprimer</a>
+                                                </p>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     @endif
-                    <form method="POST" enctype="multipart/form-data" action="{{ route('clubs.addPhoto', $club->id) }}">
-                        {{ csrf_field() }}
-                        <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
-                            <label for="file">Ajouter une photo</label>
-                            <input type="file" class="form-control" placeholder="Ajouter une photo" name="file" />
-                            {!! $errors->first('file', '<span class="help-block">:message</span>') !!}
-                        </div>
-                        <button type="submit" class="btn btn-default btn-block">Ajouter</button>
-                    </form>
+                    @if ($club->administrators->contains($user->id))
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('clubs.addPhoto', $club->id) }}">
+                            {{ csrf_field() }}
+                            <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
+                                <label for="file">Ajouter une photo</label>
+                                <input type="file" class="form-control" placeholder="Ajouter une photo" name="file" />
+                                {!! $errors->first('file', '<span class="help-block">:message</span>') !!}
+                            </div>
+                            <button type="submit" class="btn btn-default btn-block">Ajouter</button>
+                        </form>
+                    @endif
                 </dd>
                 <dt>Type de club</dt>
                 <dd>{{ $club->clubType->name }}</dd>
-                @if ($club->owners->contains($user->id) || $club->administrators->contains($user->id))
+                @if ($club->administrators->contains($user->id))
                     <dt>Code d'accès</dt>
                     <dd>{{ $club->access_code }}</dd>
                 @endif
@@ -69,6 +73,52 @@
                 @if ($club->phone)
                     <dt>Numéro de téléphone</dt>
                     <dd>{{ $club->phone }}</dd>
+                @endif
+                @if ($club->owners)
+                    <dt>Gérant</dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            @foreach ($club->owners as $clubOwner)
+                                <li>{{ $clubOwner->name }}</li>
+                            @endforeach
+                        </ul>
+                    </dd>
+                @endif
+                @if ($club->administrators)
+                    <dt>Administrateurs</dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            @foreach ($club->administrators as $clubAdministrator)
+                                <li>{{ $clubAdministrator->name }}</li>
+                            @endforeach
+                        </ul>
+                        @if ($club->owners->contains($user->id) && $club->members)
+                            <form method="POST" enctype="multipart/form-data" action="{{ route('clubs.addAdministrator', $club->id) }}">
+                                {{ csrf_field() }}
+                                <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
+                                    <label for="user_id">Ajouter un administrateur</label>
+                                    <select class="form-control" name="user_id">
+                                        <option>Membre...</option>
+                                        @foreach ($club->members as $member)
+                                            <option value="{{ $member->id }}" {{ old('user_id') == 1 ? 'selected' : '' }}>{{ $member->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    {!! $errors->first('file', '<span class="help-block">:message</span>') !!}
+                                </div>
+                                <button type="submit" class="btn btn-default btn-block">Ajouter</button>
+                            </form>
+                        @endif
+                    </dd>
+                @endif
+                @if ($club->members)
+                    <dt>Membres</dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            @foreach ($club->members as $clubMember)
+                                <li>{{ $clubMember->name }}</li>
+                            @endforeach
+                        </ul>
+                    </dd>
                 @endif
             </dl>
         </div>

@@ -76,7 +76,7 @@ class ClubsController extends Controller
     public function edit($clubId, Request $request)
     {
         $user = User::find(Auth::user()->id);
-        $club = $user->ownedClubs()->find($clubId);
+        $club = $user->administratedClubs()->find($clubId);
         if (empty($club)) {
             return redirect('clubs')
                 ->with('status', 'Accès interdit');
@@ -122,7 +122,7 @@ class ClubsController extends Controller
     public function addPhoto($clubId, Request $request)
     {
         $user = User::find(Auth::user()->id);
-        $club = $user->ownedClubs()->find($clubId);
+        $club = $user->administratedClubs()->find($clubId);
         if (empty($club)) {
             return redirect('clubs')
                 ->with('status', 'Accès interdit');
@@ -145,10 +145,33 @@ class ClubsController extends Controller
             ->with('status', 'Erreur lors de l\'ajout de la photo');
     }
 
+    public function setPrimaryPhoto($clubId, $primaryClubPhotoId, Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $club = $user->administratedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect('clubs')
+                ->with('status', 'Accès interdit');
+        }
+
+        $clubPhotos = ClubPhoto::where(['club_id' => $clubId])->get();
+        foreach ($clubPhotos as $clubPhoto) {
+            if ($clubPhoto->id != $primaryClubPhotoId && $clubPhoto->primary) {
+                $clubPhoto->primary = false;
+            } elseif ($clubPhoto->id == $primaryClubPhotoId) {
+                $clubPhoto->primary = true;
+            } else {
+                continue;
+            }
+            $clubPhoto->save();
+        }
+        return redirect('clubs/view/'.$club->id);
+    }
+
     public function getPhoto($clubId, $clubPhotoId, Request $request)
     {
         $user = User::find(Auth::user()->id);
-        $club = $user->ownedClubs()->find($clubId);
+        $club = $user->memberedClubs()->find($clubId);
         if (empty($club)) {
             return redirect('clubs')
                 ->with('status', 'Accès interdit');
@@ -158,6 +181,32 @@ class ClubsController extends Controller
         if (!empty($photo)) {
             return response()->file(Storage::path($photo->file));
         }
+    }
+
+    public function addAdministrator($clubId, Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $club = $user->ownedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect('clubs')
+                ->with('status', 'Accès interdit');
+        }
+
+        if ($request->isMethod('post')) {
+            $this->validate($request, [
+                'user_id' => 'bail|numeric|required',
+            ]);
+            if (empty($club->administrators()->find($request->input('user_id')))) {
+                $club->users()->attach($request->input('user_id'), ['role' => 'administrator']);
+                return redirect('clubs/view/'.$club->id)
+                    ->with('status', 'Administrateur ajouté');
+            } else {
+                return redirect('clubs/view/'.$club->id)
+                    ->with('status', 'Déjà administrateur');
+            }
+        }
+        return redirect('clubs/view/'.$club->id)
+            ->with('status', 'Erreur lors de l\'ajout de la photo');
     }
 
     public function delete($clubId)
@@ -179,9 +228,14 @@ class ClubsController extends Controller
             $club = Club::where('access_code', $request->input('access_code'))
                 ->first();
             if (!empty($club)) {
-                $club->users()->attach($user->id, ['role' => 'member']);
-                return redirect('clubs')
-                    ->with('status', 'Bienvenue au club "'.$club->name.'"');
+                if (empty($club->members()->find($user->id))) {
+                    $club->users()->attach($user->id, ['role' => 'member']);
+                    return redirect('clubs/view/'.$club->id)
+                        ->with('status', 'Bienvenue au club "'.$club->name.'"');
+                } else {
+                    return redirect('clubs/view/'.$club->id)
+                        ->with('status', 'Déjà membre du club "'.$club->name.'"');
+                }
             } else {
                 return redirect('clubs')
                     ->with('status', 'Aucun club n\'a été trouvé');

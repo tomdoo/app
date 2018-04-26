@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Club', 'users_clubs')
             ->withPivot('role')
             ->withTimestamps()
-            ->wherePivot('role', 'administrator');
+            ->wherePivotIn('role', ['administrator', 'owner']);
     }
 
     public function memberedClubs()
@@ -55,6 +55,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Club', 'users_clubs')
             ->withPivot('role')
             ->withTimestamps()
-            ->wherePivot('role', 'member');
+            ->wherePivotIn('role', ['member', 'administrator', 'owner']);
     }
 }
