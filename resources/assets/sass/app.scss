@@ -11,11 +11,14 @@
 #app {
 	padding-bottom: 50px;
 }
+#app > .container {
+	z-index: 1;
+}
+#app img {
+	max-width: 100%;
+}
 #nav-primary {
 	position: fixed;
 	bottom: 0;
 	z-index: 2;
-}
-#app > .container {
-	z-index: 1;
 }

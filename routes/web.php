@@ -34,17 +34,24 @@ Route::post('/clubs/edit/{clubId}', 'ClubsController@edit')->name('clubs.edit');
 Route::get('/clubs/delete/{clubId}', 'ClubsController@delete')->name('clubs.delete');
 Route::get('/clubs/member', 'ClubsController@member')->name('clubs.member');
 Route::post('/clubs/member', 'ClubsController@member')->name('clubs.member');
+Route::get('/clubs/addAnonymousMember/{clubId}', 'ClubsController@addAnonymousMember')->name('clubs.addAnonymousMember');
+Route::post('/clubs/addAnonymousMember/{clubId}', 'ClubsController@addAnonymousMember')->name('clubs.addAnonymousMember');
 Route::post('/clubs/addPhoto/{clubId}', 'ClubsController@addPhoto')->name('clubs.addPhoto');
-Route::get('/clubs/getPhoto/{clubId}/{clubPhotoId}', 'ClubsController@getPhoto')->name('clubs.getPhoto');
-Route::get('/clubs/setPrimaryPhoto/{clubId}/{clubPhotoId}', 'ClubsController@setPrimaryPhoto')->name('clubs.setPrimaryPhoto');
-Route::get('/clubs/deletePhoto/{clubId}/{clubPhotoId}', 'ClubsController@deletePhoto')->name('clubs.deletePhoto');
+Route::get('/clubs/getPhoto/{clubPhotoId}', 'ClubsController@getPhoto')->name('clubs.getPhoto');
+Route::get('/clubs/setPrimaryPhoto/{clubPhotoId}', 'ClubsController@setPrimaryPhoto')->name('clubs.setPrimaryPhoto');
+Route::get('/clubs/deletePhoto/{clubPhotoId}', 'ClubsController@deletePhoto')->name('clubs.deletePhoto');
 Route::post('/clubs/addAdministrator/{clubId}', 'ClubsController@addAdministrator')->name('clubs.addAdministrator');
 
 // events
 Route::get('/events', 'EventsController@index')->name('events');
 Route::get('/events/view/{eventId}', 'EventsController@view')->name('events.view');
-Route::get('/events/create/{clubId?}', 'EventsController@create')->name('events.create');
-Route::post('/events/create/{clubId?}', 'EventsController@create')->name('events.create');
+Route::get('/events/edit/{clubId?}', 'EventsController@edit')->name('events.edit');
+Route::post('/events/edit/{clubId?}', 'EventsController@edit')->name('events.edit');
+Route::get('/events/delete/{eventId}', 'EventsController@delete')->name('events.delete');
+Route::get('/events/participate/{eventId}/{participate}', 'EventsController@participate')->name('events.participate');
+Route::get('/events/subscribeAnonymous/{eventId}', 'EventsController@subscribeAnonymous')->name('events.subscribeAnonymous');
+Route::post('/events/subscribeAnonymous/{eventId}', 'EventsController@subscribeAnonymous')->name('events.subscribeAnonymous');
+Route::get('/events/unsubscribeAnonymous/{eventId}/{anonymousUserId}', 'EventsController@unsubscribeAnonymous')->name('events.unsubscribeAnonymous');
 
 Route::get('/account/subscriptions', 'AccountController@subscriptions')->name('account.subscriptions');
 

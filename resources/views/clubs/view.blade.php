@@ -14,12 +14,12 @@
                             @foreach ($club->photos as $photo)
                                 <div class="col-xs-4">
                                     <div class="thumbnail">
-                                        <img src="{{ route('clubs.getPhoto', [$club->id, $photo->id]) }}" height="100" />
+                                        <img src="{{ route('clubs.getPhoto', [$photo->id]) }}" height="100" />
                                         @if ($club->administrators->contains($user->id))
                                             <div class="caption">
                                                 <p>
-                                                    <a href="{{ route('clubs.setPrimaryPhoto', [$club->id, $photo->id]) }}" class="btn btn-{{ $photo->primary ? 'primary' : 'default' }}">Photo principale</a>
-                                                    <a href="{{ route('clubs.deletePhoto', [$club->id, $photo->id]) }}" class="btn btn-danger">Supprimer</a>
+                                                    <a href="{{ route('clubs.setPrimaryPhoto', [$photo->id]) }}" class="btn btn-{{ $photo->primary ? 'primary' : 'default' }}">Photo principale</a>
+                                                    <a href="{{ route('clubs.deletePhoto', [$photo->id]) }}" class="btn btn-danger">Supprimer</a>
                                                 </p>
                                             </div>
                                         @endif
@@ -120,16 +120,25 @@
                         </ul>
                     </dd>
                 @endif
+                @if ($club->anonymousMembers)
+                    <dt>Membres non enregistrés</dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            @foreach ($club->anonymousMembers as $anonymousClubMember)
+                                <li>{{ $anonymousClubMember->firstname }} {{ $anonymousClubMember->lastname }}</li>
+                            @endforeach
+                        </ul>
+                    </dd>
+                    <a class="btn btn-default btn-block" href="{{ route('clubs.addAnonymousMember', $club->id) }}">Ajouter un membre non-enregistré</a>
+                @endif
             </dl>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
-            @if ($club->owners->contains($user->id) || $club->administrators->contains($user->id))
-                <a class="btn btn-default btn-block" href="{{ route('clubs.edit', $club->id) }}">Modifier</a>
-            @endif
             @if ($club->owners->contains($user->id))
+                <a class="btn btn-default btn-block" href="{{ route('clubs.edit', $club->id) }}">Modifier</a>
                 <a class="btn btn-danger btn-block" href="{{ route('clubs.delete', $club->id) }}">Supprimer</a>
             @endif
         </div>

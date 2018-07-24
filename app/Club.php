@@ -40,6 +40,13 @@ class Club extends Model
             ->orderBy('created_at', 'desc');
     }
 
+    public function primaryPhoto()
+    {
+        return $this->hasMany('App\ClubPhoto')
+            ->orderBy('primary', 'desc')
+            ->limit(1);
+    }
+
     public function owners()
     {
         return $this->belongsToMany('App\User', 'users_clubs')
@@ -65,5 +72,12 @@ class Club extends Model
             ->withTimestamps()
             ->wherePivotIn('role', ['member', 'administrator', 'owner'])
             ->orderBy('name');
+    }
+
+    public function anonymousMembers()
+    {
+        return $this->hasMany('App\AnonymousUser')
+            ->orderBy('firstname')
+            ->orderBy('lastname');
     }
 }
