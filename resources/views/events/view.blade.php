@@ -77,11 +77,11 @@
                 <a class="btn btn-default btn-block" href="{{ route('events.participate', [$event->id, 1]) }}">Participer</a>
             @endif
             
-            @if ($event->participants->count() + $event->anonymousParticipants->count() < $event->max_participants)
-                <a class="btn btn-default btn-block" href="{{ route('events.subscribeAnonymous', [$event->id]) }}">Inscrire un membre non-enregistré</a>
-            @endif
 
             @if ($event->club->administrators->contains($user->id))
+                @if ($event->participants->count() + $event->anonymousParticipants->count() < $event->max_participants)
+                    <a class="btn btn-default btn-block" href="{{ route('events.subscribeAnonymous', [$event->id]) }}">Inscrire un membre non-enregistré</a>
+                @endif
                 <a class="btn btn-default btn-block" href="{{ route('events.edit', $event->id) }}">Modifier</a>
                 <a class="btn btn-danger btn-block" href="{{ route('events.delete', $event->id) }}">Supprimer</a>
             @endif

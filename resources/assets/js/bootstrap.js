@@ -57,11 +57,10 @@ if (token) {
 /**
  * service worker tasks
  */
+var swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
-	console.log('Service Worker and Push is supported');
 	navigator.serviceWorker.register('/sw.js')
 	.then(function(swReg) {
-		console.log('Service Worker is registered', swReg);
 		swRegistration = swReg;
 	})
 	.catch(function(error) {
@@ -71,3 +70,91 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 	console.warn('Push messaging is not supported');
 	//pushButton.textContent = 'Push Not Supported';
 }
+
+function askPermission() {
+	return new Promise(function(resolve, reject) {
+		const permissionResult = Notification.requestPermission(function(result) {
+			resolve(result);
+		});
+		if (permissionResult) {
+			permissionResult.then(resolve, reject);
+		}
+	})
+	.then(function(permissionResult) {
+		if (permissionResult !== 'granted') {
+			throw new Error('Impossible d\'obtenir la permission');
+		} else {
+			subscribeUserToPush();
+		}
+	})
+}
+
+function getSWRegistration() {
+	var promise = new Promise(function(resolve, reject) {
+		if (swRegistration != null) {
+			resolve(swRegistration);
+		} else {
+			reject(Error('It brokes'));
+		}
+	});
+	return promise;
+}
+
+function urlBase64ToUint8Array(base64String) {
+	const padding = '='.repeat((4 - base64String.length % 4) % 4);
+	const base64 = (base64String + padding)
+		.replace(/\-/g, '+')
+		.replace(/_/g, '/');
+	const rawData = window.atob(base64);
+	const outputArray = new Uint8Array(rawData.length);
+	for (let i = 0; i < rawData.length; ++i) {
+		outputArray[i] = rawData.charCodeAt(i);
+	}
+	return outputArray;
+}
+
+function subscribeUserToPush() {
+	getSWRegistration()
+	.then(function(registration) {
+		console.log('registration', registration);
+		const subscribeOptions = {
+			userVisibleOnly: true,
+			applicationServerKey: urlBase64ToUint8Array('BNp7AjH7Eh/pVxMJ9u+c3bLWKsrl7Hp9JyXUuMP479siq1qF+/AYCe0IJdO9s3ktfBYEmzROFvHtayt+CslwquA=')
+		};
+		return registration.pushManager.subscribe(subscribeOptions);
+	})
+	.then(function(pushSubscription) {
+		console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
+		sendSubscriptionToBackend(pushSubscription);
+		return pushSubscription;
+	});
+}
+
+function sendSubscriptionToBackend(subscription) {
+	return fetch('/api/save-subscription/1', {
+    	method: 'POST',
+    	headers: {
+      		'Content-Type': 'application/json'
+    	},
+    	body: JSON.stringify(subscription)
+  	})
+  	.then(function(response) {
+  		if (!response.ok) {
+  			throw new Error('Bad status code from server.');
+  		}
+  		return response.json();
+  	})
+  	.then(function(responseData) {
+  		if (!(responseData && responseData.success)) {
+  			throw new Error('Bad response from server.');
+  		}
+  	});
+}
+
+function enableNotifications(){
+  //register service worker
+  //check permission for notification/ask
+  askPermission();
+}
+
+// enableNotifications();

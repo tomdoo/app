@@ -8,7 +8,7 @@
         <div class="col-xs-12">
             <form method="POST" action="{{ url()->current() }}">
                 {{ csrf_field() }}
-                @if ($clubs->count() == 1)
+                @if ($clubs->count() == 1 || !empty($club))
                     <input type="hidden" value="{{ $clubs->first()->id }}" name="club_id" />
                 @else
                     <div class="form-group {{ $errors->has('club_id') ? 'has-error' : '' }}">

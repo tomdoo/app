@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h2>Clubs dont je suis membre</h2>
-            <a href="{{ route('clubs.member') }}" class="btn btn-default btn-block">Ajouter un club</a>
+            <a href="{{ route('clubs.addMember') }}" class="btn btn-default btn-block">Ajouter un club</a>
             @foreach ($memberedClubs as $club)
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -249,7 +249,86 @@ class ClubsController extends Controller
             ->with('status', 'Club supprimé');
     }
 
-    public function member(Request $request)
+    public function members($clubId, Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $club = $user->administratedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect()
+                ->route('clubs')
+                ->with('status', 'Accès interdit');
+        }
+
+        return view('clubs/members', [
+            'club' => $club,
+        ]);
+    }
+
+    public function member($clubId, $memberId, Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $club = $user->administratedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect()
+                ->route('clubs')
+                ->with('status', 'Accès interdit');
+        }
+
+        $member = $club->members()->find($memberId);
+        if (empty($member)) {
+            return redirect()
+                ->route('clubs.view', ['clubId' => $club->id])
+                ->with('status', 'Membre introuvable');
+        }
+
+        $date = strtotime(date('Y-m-d').' -1 year');
+        $events = $member
+            ->events()
+            ->where('club_id', $clubId)
+            ->whereDate('start_date', '>=', date('Y-m-d', $date))
+            ->get();
+
+        return view('clubs/member', [
+            'club' => $club,
+            'member' => $member,
+            'events' => $events,
+            'months' => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        ]);
+    }
+
+    public function anonymousMember($clubId, $anonymousUserId, Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $club = $user->administratedClubs()->find($clubId);
+        if (empty($club)) {
+            return redirect()
+                ->route('clubs')
+                ->with('status', 'Accès interdit');
+        }
+
+        $member = $club->anonymousMembers()->find($anonymousUserId);
+        if (empty($member)) {
+            return redirect()
+                ->route('clubs.view', ['clubId' => $club->id])
+                ->with('status', 'Membre introuvable');
+        }
+
+        $date = strtotime(date('Y-m-d').' -1 year');
+        $events = $member
+            ->events()
+            ->where('club_id', $clubId)
+            ->whereDate('start_date', '>=', date('Y-m-d', $date))
+            ->get();
+
+        return view('clubs/member', [
+            'club' => $club,
+            'member' => $member,
+            'events' => $events,
+            'months' => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        ]);
+    }
+
+    public function addMember(Request $request)
     {
         $user = User::find(Auth::user()->id);
         if ($request->isMethod('post')) {
@@ -275,8 +354,7 @@ class ClubsController extends Controller
                     ->with('status', 'Aucun club n\'a été trouvé');
             }
         }
-        return redirect()
-            ->route('clubs.member');
+        return view('clubs/addMember');
     }
 
     public function addAnonymousMember($clubId, Request $request)

@@ -10,4 +10,10 @@ class AnonymousUser extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    public function events()
+    {
+        return $this->belongsToMany('App\Event', 'users_events')
+            ->withTimestamps();
+    }
 }

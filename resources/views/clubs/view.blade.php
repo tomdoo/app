@@ -110,7 +110,7 @@
                         @endif
                     </dd>
                 @endif
-                @if ($club->members)
+                {{-- @if ($club->members)
                     <dt>Membres</dt>
                     <dd>
                         <ul class="list-unstyled">
@@ -130,13 +130,18 @@
                         </ul>
                     </dd>
                     <a class="btn btn-default btn-block" href="{{ route('clubs.addAnonymousMember', $club->id) }}">Ajouter un membre non-enregistré</a>
-                @endif
+                @endif --}}
             </dl>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
+            @if ($club->administrators->contains($user->id))
+                <a class="btn btn-default btn-block" href="{{ route('clubs.members', $club->id) }}">Membres actifs</a>
+                <a class="btn btn-default btn-block" href="{{ route('clubs.membersArchive', $club->id) }}">Anciens membres</a>
+            @endif
+
             @if ($club->owners->contains($user->id))
                 <a class="btn btn-default btn-block" href="{{ route('clubs.edit', $club->id) }}">Modifier</a>
                 <a class="btn btn-danger btn-block" href="{{ route('clubs.delete', $club->id) }}">Supprimer</a>

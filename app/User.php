@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasPushSubscriptions;
 
     /**
      * The attributes that are mass assignable.
@@ -56,5 +58,11 @@ class User extends Authenticatable
             ->withPivot('role')
             ->withTimestamps()
             ->wherePivotIn('role', ['member', 'administrator', 'owner']);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany('App\Event', 'users_events')
+            ->withTimestamps();
     }
 }

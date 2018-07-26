@@ -10,6 +10,9 @@ use App\Club;
 use App\Country;
 use App\User;
 use App\AnonymousUser;
+use App\Notifications\EventSubscribeNotification;
+use App\Notifications\EventUnsubscribeNotification;
+use Illuminate\Support\Facades\Notification;
 
 class EventsController extends Controller
 {
@@ -52,6 +55,10 @@ class EventsController extends Controller
                     }
                 }
             }
+        } else {
+            return redirect()
+                ->route('clubs')
+                ->with('status', 'Ajoutez un club pour commencer');
         }
 
         $administratedClubsEvents = [];
@@ -235,11 +242,13 @@ class EventsController extends Controller
         $participantsCount = $event->participants()->count() + $event->anonymousParticipants()->count();
         if ($participantsCount < $event->max_participants && !empty($participate) && !$event->participants->contains($user->id)) {
             $event->participants()->attach($user->id);
+            Notification::send($club->administrators, new EventSubscribeNotification());
             return redirect()
                 ->route('events.view', ['eventId' => $eventId])
                 ->with('status', 'Vous participez à cet événement');
         } elseif (empty($participate) && $event->participants->contains($user->id)) {
             $event->participants()->detach($user->id);
+            Notification::send($club->administrators, new EventUnsubscribeNotification());
         }
         return redirect()
             ->route('events.view', ['eventId' => $eventId])
