@@ -105,10 +105,17 @@
                     </div>
                 </div>
             </nav>
-            @endauth
+        @endauth
             
-            @yield('content')
-        </div>
+        @yield('content')
+        
+        @if (Auth::user())
+            <push-component
+                user-id="{{ Auth::user()->id }}"
+                push-subscription-endpoints="{{ json_encode(Auth::user()->pushSubscriptions->pluck('endpoint')->toArray()) }}">
+            </push-component>
+        @endif
+
     </div>
 
     <!-- Scripts -->

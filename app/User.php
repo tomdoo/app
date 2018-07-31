@@ -65,4 +65,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Event', 'users_events')
             ->withTimestamps();
     }
+
+    public function pushSubscriptions()
+    {
+        return $this->hasMany('\App\PushSubscription');
+    }
 }
