@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MessengerController extends Controller
+class NotificationsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,6 +24,9 @@ class MessengerController extends Controller
      */
     public function index()
     {
-        return view('messenger/index');
+        $notifications = Auth::user()->notifications;
+        return view('notifications/index', [
+            'notifications' => $notifications
+        ]);
     }
 }

@@ -18,9 +18,9 @@ class WelcomeNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -31,8 +31,7 @@ class WelcomeNotification extends Notification
      */
     public function via($notifiable)
     {
-        // return ['mail'];
-        return [WebPushChannel::class];
+        return ['mail'];
     }
 
     /**
@@ -44,9 +43,10 @@ class WelcomeNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting('Bonjour '.$this->user->name.' !')
+            ->line('Bienvenue sur '.config('app.name').'. Vous pouvez maintenant rejoindre des clubs puis participer à des évenements.')
+            ->action('Rejoindre un club', route('clubs'))
+            ->salutation("À très vite,\nL'équipe ".config('app.name'));
     }
 
     /**
@@ -60,12 +60,5 @@ class WelcomeNotification extends Notification
         return [
             //
         ];
-    }
-
-    public function toWebPush($notifiable, $notification)
-    {
-        return (new WebPushMessage)
-            ->title('Welcome to push notifications')
-            ->body('You will now receive push notifications from this app');
     }
 }

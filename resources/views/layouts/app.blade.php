@@ -87,7 +87,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('events') }}">Événements</a></li>
                             <li><a href="{{ route('clubs') }}">Clubs</a></li>
-                            <li><a href="{{ route('messenger') }}">Messagerie</a></li>
+                            <li><a href="{{ route('notifications') }}">Notifications</a></li>
                             <li><a href="{{ route('account.informations') }}">Mon profil</a></li>
                             <li><a href="{{ route('account.subscriptions') }}">Mes abonnements</a></li>
                             <li><a href="{{ route('faq') }}">FAQ</a></li>
@@ -101,7 +101,7 @@
                         <a class="btn btn-default" href="{{ route('clubs') }}">Clubs</a>
                     </div>
                     <div class="btn-group" role="group">
-                        <a class="btn btn-default" href="{{ route('messenger') }}">Notifications</a>
+                        <a class="btn btn-default" href="{{ route('notifications') }}">Notifications</a>
                     </div>
                 </div>
             </nav>

@@ -24,7 +24,6 @@ Route::post('/save-subscription/{id}', function ($id, Request $request) {
         $request->input('keys.p256dh'),
         $request->input('keys.auth')
     );
-    $user->notify(new \App\Notifications\WelcomeNotification());
     return response()->json([
         'success' => true,
     ]);

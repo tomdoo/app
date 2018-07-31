@@ -23,6 +23,7 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 // account
 Route::get('/account/informations', 'AccountController@informations')->name('account.informations');
 Route::post('/account/informations', 'AccountController@informations')->name('account.informations');
+Route::get('/account/subscriptions', 'AccountController@subscriptions')->name('account.subscriptions');
 
 // clubs
 Route::get('/clubs', 'ClubsController@index')->name('clubs');
@@ -57,10 +58,12 @@ Route::get('/events/subscribeAnonymous/{eventId}', 'EventsController@subscribeAn
 Route::post('/events/subscribeAnonymous/{eventId}', 'EventsController@subscribeAnonymous')->name('events.subscribeAnonymous');
 Route::get('/events/unsubscribeAnonymous/{eventId}/{anonymousUserId}', 'EventsController@unsubscribeAnonymous')->name('events.unsubscribeAnonymous');
 
-Route::get('/account/subscriptions', 'AccountController@subscriptions')->name('account.subscriptions');
+// notifications
+Route::get('/notifications', 'NotificationsController@index')->name('notifications');
 
-Route::get('/messenger', 'MessengerController@index')->name('messenger');
+// faq
 Route::get('/faq', 'FaqController@index')->name('faq');
 
+// auth
 Route::get('/auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('/auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

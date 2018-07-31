@@ -32,7 +32,10 @@ class EventSubscribeNotification extends Notification
     public function via($notifiable)
     {
         // return ['mail'];
-        return [WebPushChannel::class];
+        return [
+            WebPushChannel::class,
+            'database',
+        ];
     }
 
     /**
@@ -44,7 +47,8 @@ class EventSubscribeNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'title' => 'New participant',
+            'body' => 'A participant subscribed your event',
         ];
     }
 

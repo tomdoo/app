@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 
 use App\User;
+use App\Notifications\WelcomeNotification;
 
 class LoginController extends Controller
 {
@@ -62,6 +63,7 @@ class LoginController extends Controller
                 'provider_id' => $social->id,
             ]);
             \auth()->login($user, true);
+            $user->notify(new WelcomeNotification($user));
         }
         return redirect('/');
     }
