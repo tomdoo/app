@@ -1,19 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <p>Logo</p>
-            <p>Nom de l'application</p>
-            <p>Description de l'appli Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Description de l'appli Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <a class="btn btn-primary btn-lg btn-block" href="{{ route('login') }}">Se connecter</a>
-            <a class="btn btn-default btn-md btn-block" href="{{ route('register') }}">Créer un compte</a>
+<div id="home">
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell--span-12">
+                <header class="center">
+                    <img src="/img/logo-128.png" alt="{{ config('app.name') }}" />
+                    <h1>{{ config('app.name') }}</h1>
+                </header>
+                
+                <p><strong>Bienvenue</strong><br />Plus que quelques étapes avant de nous rejoindre.</p>
+                
+                <div class="social center">
+                    <a href="{{ url('/auth/google') }}" class="mdc-button mdc-button--unelevated"><i class="fab fa-google-plus-g"></i>&nbsp;Continuer avec Google</a><br />
+                </div>
+                
+                <div class="separator">
+                    <span class="separator-text">Ou</span>
+                </div>
+                
+                <div class="center">
+                    <a class="mdc-button mdc-button--outlined" href="{{ route('register') }}">
+                        <i class="material-icons">email</i>&nbsp;S'inscrire avec une adresse email
+                    </a>
+                </div>
+                
+                <div class="login center">
+                    Vous êtes déjà membre ? <strong><a href="{{ route('login') }}">Se connecter</a></strong>
+                </div>
+            </div>
         </div>
     </div>
 </div>

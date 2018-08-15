@@ -1,0 +1,22 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    background: $bg-gradient;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    color: $text-color;
+}
+
+.center {
+    text-align: center;
+}
+strong {
+    font-weight: 500;
+}
+
+#app {
+    height: 100%;
+}

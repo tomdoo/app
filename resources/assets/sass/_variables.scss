@@ -1,6 +1,9 @@
 
 // Body
-//$body-bg: #f5f8fa;
+$gradient-start: #fe9b01;
+$gradient-end: #ee615e;
+$bg-gradient: linear-gradient(to bottom right, $gradient-start, $gradient-end) no-repeat fixed;
+$bg: #fff;
 
 // Borders
 //$laravel-border-color: darken($body-bg, 10%);
@@ -21,7 +24,8 @@
 //$font-family-sans-serif: "Raleway", sans-serif;
 //$font-size-base: 14px;
 //$line-height-base: 1.6;
-//$text-color: #636b6f;
+$title-color: #ec8b23;
+$text-color: #444444;
 
 // Navbar
 //$navbar-default-bg: #fff;
@@ -36,3 +40,6 @@
 
 // Panels
 //$panel-default-heading-bg: #fff;
+
+// MDC
+$button-color: #ef6757;

@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#fff">
     <meta name="mobile-web-app-capable" content="yes">
     <!-- iOS -->
-    <meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'Laravel') }}">
+    <meta name="apple-mobile-web-app-title" content="{{ config('app.name') }}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <!-- Windows  -->
@@ -22,8 +22,8 @@
     <meta name="msapplication-TileImage" content="/img/logo.png"><!-- 144 -->
     <meta name="msapplication-config" content="browserconfig.xml">
     <!-- Pinned Sites  -->
-    <meta name="application-name" content="{{ config('app.name', 'Laravel') }}">
-    <meta name="msapplication-tooltip" content="{{ config('app.name', 'Laravel') }}">
+    <meta name="application-name" content="{{ config('app.name') }}">
+    <meta name="msapplication-tooltip" content="{{ config('app.name') }}">
     <meta name="msapplication-starturl" content="/">
     <!-- Tap highlighting  -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -70,7 +70,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
-<body>
+<body class="mdc-typography">
     <div id="app">
         @if (session('status'))
             <div class="alert alert-success alert-dismissible" role="alert">

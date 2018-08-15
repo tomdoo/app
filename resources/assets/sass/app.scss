@@ -1,14 +1,24 @@
 
 // Fonts
-//@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 
 // Variables
-@import "variables";
+@import 'variables';
+@import 'mixins';
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+// Material-UI
+@import "@material/layout-grid/mdc-layout-grid";
+@import "@material/button/mdc-button";
 
-#app {
+// Partials
+@import 'partials/_global.scss';
+@import 'partials/_menu.scss';
+
+@import 'partials/_home.scss';
+
+/*#app {
 	padding-bottom: 50px;
 }
 #app > .container {
@@ -21,4 +31,4 @@
 	position: fixed;
 	bottom: 0;
 	z-index: 2;
-}
+}*/

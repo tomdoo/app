@@ -21,3 +21,7 @@ Vue.component('graph-component', require('./components/GraphComponent.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+// Material
+import {MDCRipple} from '@material/ripple';
+const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));

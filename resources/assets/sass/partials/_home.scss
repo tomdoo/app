@@ -1,0 +1,44 @@
+#home {
+  background: $bg;
+  background-attachment: fixed;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 30px;
+
+  .mdc-layout-grid, .mdc-layout-grid__inner {
+    min-height: 100%;
+    position: relative;
+  }
+
+  header {
+    color: $title-color;
+  }
+
+  .social {
+    line-height: 50px;
+  }
+
+  .separator {
+    border-top: 1px solid #e4e4e4;
+    margin: 40px 0;
+
+    .separator-text {
+      text-transform: uppercase;
+      display: block;
+      margin: -8px auto 0 auto;
+      background: $bg;
+      width: 55px;
+      text-align: center;
+      color: #e4e4e4;
+      line-height: 1em;
+    }
+  }
+
+  .login {
+    margin-top: 30px;
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+  }
+}
