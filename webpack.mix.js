@@ -14,3 +14,21 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/sw.js', 'public')
    .sass('resources/assets/sass/app.scss', 'public/css');
+
+mix.webpackConfig({
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: {
+          loader: 'sass-loader',
+          options: {
+            includePaths: [
+              path.resolve('node_modules/'),
+            ]
+          }
+        }
+      }
+    ]
+  }
+ });
