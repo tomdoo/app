@@ -20,20 +20,4 @@
 @import 'partials/_menu.scss';
 
 @import 'partials/_home.scss';
-@import 'partials/_login.scss';
-@import 'partials/_register.scss';
-
-/*#app {
-	padding-bottom: 50px;
-}
-#app > .container {
-	z-index: 1;
-}
-#app img {
-	max-width: 100%;
-}
-#nav-primary {
-	position: fixed;
-	bottom: 0;
-	z-index: 2;
-}*/
+@import 'partials/_auth.scss';

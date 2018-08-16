@@ -3062,7 +3062,10 @@ a {
   color: #000;
 }
 
-#login {
+#login,
+#register,
+#password-email,
+#password-reset {
   background: #fff;
   background-attachment: fixed;
   min-height: 100%;
@@ -3070,78 +3073,50 @@ a {
 }
 
 #login .mdc-layout-grid,
-#login .mdc-layout-grid__inner {
-  min-height: 100%;
-  position: relative;
-}
-
-#login header {
-  color: #ec8b23;
-}
-
-#login form .mdc-text-field {
-  width: 100%;
-}
-
-#login form button {
-  margin-top: 15px;
-}
-
-#login .register {
-  margin-top: 30px;
-}
-
-#login .register a {
-  text-decoration: none;
-  color: #000;
-}
-
-#register {
-  background: #fff;
-  background-attachment: fixed;
-  min-height: 100%;
-  position: relative;
-}
-
+#login .mdc-layout-grid__inner,
 #register .mdc-layout-grid,
-#register .mdc-layout-grid__inner {
+#register .mdc-layout-grid__inner,
+#password-email .mdc-layout-grid,
+#password-email .mdc-layout-grid__inner,
+#password-reset .mdc-layout-grid,
+#password-reset .mdc-layout-grid__inner {
   min-height: 100%;
   position: relative;
 }
 
-#register header {
+#login header,
+#register header,
+#password-email header,
+#password-reset header {
   color: #ec8b23;
 }
 
-#register form .mdc-text-field {
+#login form .mdc-text-field,
+#register form .mdc-text-field,
+#password-email form .mdc-text-field,
+#password-reset form .mdc-text-field {
   width: 100%;
 }
 
-#register form button {
+#login form button,
+#register form button,
+#password-email form button,
+#password-reset form button {
   margin-top: 15px;
 }
 
-#register .register {
+#login .register,
+#register .register,
+#password-email .register,
+#password-reset .register {
   margin-top: 30px;
 }
 
-#register .register a {
+#login .register a,
+#register .register a,
+#password-email .register a,
+#password-reset .register a {
   text-decoration: none;
   color: #000;
 }
-
-/*#app {
-	padding-bottom: 50px;
-}
-#app > .container {
-	z-index: 1;
-}
-#app img {
-	max-width: 100%;
-}
-#nav-primary {
-	position: fixed;
-	bottom: 0;
-	z-index: 2;
-}*/
 
