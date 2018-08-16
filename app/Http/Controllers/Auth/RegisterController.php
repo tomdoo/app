@@ -66,7 +66,7 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'email' => strtolower($data['email']),
             'password' => bcrypt($data['password']),
         ]);
         $user->notify(new WelcomeNotification($user));

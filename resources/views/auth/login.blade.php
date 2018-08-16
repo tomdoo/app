@@ -1,68 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Se connecter</h1>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Adresse email</h2>
-                </div>
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-xs-12 control-label">Adresse email</label>
-                            <div class="col-xs-12">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Adresse email" required autofocus>
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+<div id="login">
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell--span-12">
+                <header class="center">
+                    <a href="{{ route('home') }}"><img src="/img/logo-128.png" alt="{{ config('app.name') }}" /></a>
+                    <h1>{{ config('app.name') }}</h1>
+                </header>
+
+                <p><strong>Connexion</strong><br />Entrez vos identifiants pour vous connecter.</p>
+                
+                <form method="POST" action="{{ route('login') }}">
+                    {{ csrf_field() }}
+                    
+                    <div class="mdc-layout-grid__inner">
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-trailing-icon {{ $errors->has('email') ? 'mdc-text-field--invalid' : '' }}">
+                                <input type="email" id="email" name="email" class="mdc-text-field__input" required value="{{ old('email') }}"
+                                    aria-controls="email-helper-text"
+                                    aria-describedby="email-helper-text"
+                                />
+                                <label for="email" class="mdc-floating-label">Adresse email</label>
+                                <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">{{ $errors->has('email') ? 'error' : 'email' }}</i>
+                                <div class="mdc-line-ripple"></div>
                             </div>
+                            @if ($errors->has('email'))
+                                <p id="email-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg" aria-hidden="true">{{ $errors->first('email') }}</p>
+                            @endif
                         </div>
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-xs-12 control-label">Mot de passe</label>
-                            <div class="col-xs-12">
-                                <input id="password" type="password" class="form-control" name="password" placeholder="Mot de passe" required>
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                    </div>
+                    
+                    <div class="mdc-layout-grid__inner">
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-trailing-icon">
+                                <input type="password" id="password" name="password" class="mdc-text-field__input" required
+                                    aria-controls="password-helper-text"
+                                    aria-describedby="password-helper-text"
+                                />
+                                <label for="password" class="mdc-floating-label">Mot de passe</label>
+                                <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">lock</i>
+                                <div class="mdc-line-ripple"></div>
                             </div>
+                            <p id="password-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" aria-hidden="true">
+                                <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
+                            </p>
                         </div>
-                        <!-- <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Se connecter</button>
-                                <a class="btn btn-default btn-md btn-block" href="{{ route('password.request') }}">Mot de passe oublié ?</a>
-                                </p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Réseaux sociaux</h2>
-                </div>
-                <div class="panel-body">
-                    <a href="{{ url('/auth/google') }}" class="btn btn-default btn-lg btn-block"><i class="fa fa-google"></i> Google</a>
+                    </div>
+                    
+                    <div class="center">
+                        <button type="submit" class="mdc-button mdc-button--unelevated">Connexion</button>
+                    </div>
+                </form>
+                
+                <div class="register center">
+                    Vous n'êtes pas membre ? <strong><a href="{{ route('register') }}">Créer un compte</a></strong>
                 </div>
             </div>
         </div>

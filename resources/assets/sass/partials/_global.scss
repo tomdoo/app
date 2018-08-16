@@ -16,6 +16,9 @@ body {
 strong {
     font-weight: 500;
 }
+a {
+    color: $text-color;
+}
 
 #app {
     height: 100%;

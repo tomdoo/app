@@ -6,7 +6,7 @@
         <div class="mdc-layout-grid__inner">
             <div class="mdc-layout-grid__cell--span-12">
                 <header class="center">
-                    <img src="/img/logo-128.png" alt="{{ config('app.name') }}" />
+                    <a href="{{ route('home') }}"><img src="/img/logo-128.png" alt="{{ config('app.name') }}" /></a>
                     <h1>{{ config('app.name') }}</h1>
                 </header>
                 

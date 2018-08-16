@@ -1,76 +1,95 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Créer un compte</h1>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Adresse email</div>
+<div id="login">
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell--span-12">
+                <header class="center">
+                    <a href="{{ route('home') }}"><img src="/img/logo-128.png" alt="{{ config('app.name') }}" /></a>
+                    <h1>{{ config('app.name') }}</h1>
+                </header>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-xs-12 control-label">Nom</label>
+                <p><strong>Création de compte</strong><br />C'est rapide et sécurisé.</p>
+                
+                <form method="POST" action="{{ route('register') }}">
+                    {{ csrf_field() }}
+                    
+                    <div class="mdc-layout-grid__inner">
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-trailing-icon {{ $errors->has('name') ? 'mdc-text-field--invalid' : '' }}">
+                                <input type="text" id="name" name="name" class="mdc-text-field__input" required value="{{ old('name') }}"
+                                    aria-controls="name-helper-text"
+                                    aria-describedby="name-helper-text"
+                                />
+                                <label for="name" class="mdc-floating-label">Nom</label>
+                                <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">{{ $errors->has('name') ? 'error' : 'face' }}</i>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                            @if ($errors->has('name'))
+                                <p id="name-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                                    {{ $errors->first('name') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="mdc-layout-grid__inner">
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-trailing-icon {{ $errors->has('email') ? 'mdc-text-field--invalid' : '' }}">
+                                <input type="email" id="email" name="email" class="mdc-text-field__input" required value="{{ old('email') }}"
+                                    aria-controls="email-helper-text"
+                                    aria-describedby="email-helper-text"
+                                />
+                                <label for="email" class="mdc-floating-label">Adresse email</label>
+                                <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">{{ $errors->has('email') ? 'error' : 'email' }}</i>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                            @if ($errors->has('email'))
+                                <p id="email-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                                    {{ $errors->first('email') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="mdc-layout-grid__inner">
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-trailing-icon {{ $errors->has('password') ? 'mdc-text-field--invalid' : '' }}">
+                                <input type="password" id="password" name="password" class="mdc-text-field__input" required
+                                    aria-controls="password-helper-text"
+                                    aria-describedby="password-helper-text"
+                                />
+                                <label for="password" class="mdc-floating-label">Mot de passe</label>
+                                <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">{{ $errors->has('password') ? 'error' : 'lock' }}</i>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                            @if ($errors->has('password'))
+                                <p id="password-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                                    {{ $errors->first('password') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nom" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                    <div class="mdc-layout-grid__inner">
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-trailing-icon">
+                                <input type="password" id="password-confirm" name="password_confirmation" class="mdc-text-field__input" required />
+                                <label for="password" class="mdc-floating-label">Confirmation du mot de passe</label>
+                                <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">lock</i>
+                                <div class="mdc-line-ripple"></div>
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-xs-12 control-label">Adresse email</label>
-                            <div class="col-xs-12">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Adresse email" required>
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-xs-12 control-label">Mot de passe</label>
-                            <div class="col-xs-12">
-                                <input id="password" type="password" class="form-control" name="password" placeholder="Mot de passe" required>
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-xs-12 control-label">Confirmation du mot de passe</label>
-                            <div class="col-xs-12">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Mot de passe" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Créer un compte</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Réseaux sociaux</h2>
-                </div>
-                <div class="panel-body">
-                    <a href="{{ url('/auth/google') }}" class="btn btn-default btn-lg btn-block"><i class="fa fa-google"></i> Google</a>
+                    </div>
+                    
+                    <div class="center">
+                        <button type="submit" class="mdc-button mdc-button--unelevated">Créer un compte</button>
+                    </div>
+                </form>
+                
+                <div class="register center">
+                    Vous êtes déjà membre ? <strong><a href="{{ route('login') }}">Se connecter</a></strong>
                 </div>
             </div>
         </div>

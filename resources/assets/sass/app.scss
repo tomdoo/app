@@ -11,12 +11,17 @@
 // Material-UI
 @import "@material/layout-grid/mdc-layout-grid";
 @import "@material/button/mdc-button";
+@import "@material/textfield/mdc-text-field";
+@import "@material/textfield/icon/mdc-text-field-icon";
+@import "@material/textfield/helper-text/mdc-text-field-helper-text";
 
 // Partials
 @import 'partials/_global.scss';
 @import 'partials/_menu.scss';
 
 @import 'partials/_home.scss';
+@import 'partials/_login.scss';
+@import 'partials/_register.scss';
 
 /*#app {
 	padding-bottom: 50px;
