@@ -79,32 +79,23 @@
             </div>
         @endif
         @auth
-            <nav id="nav-primary">
-                <div class="btn-group btn-group-justified" role="group">
-                    <div class="btn-group dropup" role="group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Menu <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ route('events') }}">Événements</a></li>
-                            <li><a href="{{ route('clubs') }}">Clubs</a></li>
-                            <li><a href="{{ route('notifications') }}">Notifications</a></li>
-                            <li><a href="{{ route('account.informations') }}">Mon profil</a></li>
-                            <li><a href="{{ route('account.subscriptions') }}">Mes abonnements</a></li>
-                            <li><a href="{{ route('faq') }}">FAQ</a></li>
-                            <li><a href="#">Site web</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-default" href="{{ route('events') }}">Événements</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-default" href="{{ route('clubs') }}">Clubs</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-default" href="{{ route('notifications') }}">Notifications</a>
-                    </div>
-                </div>
-            </nav>
+            <menu-component
+                :elements="{{ json_encode([
+                    ['name' => 'Événements', 'route' => route('events'), 'icon' => 'calendar_today'],
+                    ['name' => 'Clubs', 'route' => route('clubs'), 'icon' => 'store_mall_directory'],
+                    ['name' => 'Notifications', 'route' => route('notifications'), 'icon' => 'notifications'],
+                ]) }}"
+                :sub-elements="{{ json_encode([
+                    ['name' => 'Événements', 'route' => route('events'), 'icon' => 'calendar_today'],
+                    ['name' => 'Clubs', 'route' => route('clubs'), 'icon' => 'store_mall_directory'],
+                    ['name' => 'Notifications', 'route' => route('notifications'), 'icon' => 'notifications'],
+                    ['name' => 'Mon profil', 'route' => route('account.informations'), 'icon' => 'face'],
+                    // ['name' => 'Mes abonnements', 'route' => route('account.subscriptions')],
+                    ['name' => 'FAQ', 'route' => route('faq'), 'icon' => 'help_outline'],
+                    ['name' => 'Site web', 'route' => 'https//upteam.app/', 'icon' => 'public'],
+                ]) }}"
+            >
+            </menu-component>
         @endauth
             
         @yield('content')

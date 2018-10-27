@@ -18,7 +18,6 @@
     mounted() {
       var scope = this
       this.showButton(Notification.permission !== 'granted')
-
       if (this.pushSubscriptionEndpoints.length > 0) {
         navigator.serviceWorker.ready.then(function(registration) {
           registration.pushManager.getSubscription().then(function(subscription) {

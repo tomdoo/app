@@ -15,6 +15,7 @@ window.Vue = require('vue');
 
 import $ from 'jquery';
 
+Vue.component('menu-component', require('./components/MenuComponent.vue'));
 Vue.component('push-component', require('./components/PushComponent.vue'));
 Vue.component('graph-component', require('./components/GraphComponent.vue'));
 

@@ -1,5 +1,19 @@
-#nav-primary {
+#menu-primary {
 	position: fixed;
 	bottom: 0;
-	z-index: 2;
+	width: 100%;
+
+	.element, .element a {
+		color: $text-color-gradient;
+		cursor: pointer;
+	}
+
+	.sub-element {
+		cursor: pointer;
+	}
+
+	.mdc-dialog__backdrop {
+		background: rgba(255, 255, 255, 0.5);
+	}
+	
 }

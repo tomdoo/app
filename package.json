@@ -10,11 +10,15 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@material/animation": "^0.34.0",
         "@material/button": "^0.38.1",
+        "@material/dialog": "^0.38.2",
         "@material/form-field": "^0.38.1",
         "@material/icon-button": "^0.38.1",
         "@material/layout-grid": "^0.34.0",
+        "@material/list": "^0.38.1",
         "@material/ripple": "^0.38.1",
+        "@material/textfield": "^0.38.1",
         "@material/typography": "^0.38.0",
         "axios": "^0.17",
         "cross-env": "^5.2.0",
@@ -24,7 +28,6 @@
         "vue": "^2.5.16"
     },
     "dependencies": {
-        "@material/textfield": "^0.38.1",
         "vue-google-charts": "^0.3.1",
         "vue-template-compiler": "^2.5.16"
     }
