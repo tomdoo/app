@@ -1,4 +1,4 @@
-let cacheName = 'upsession-0.1';
+let cacheName = 'upteam-0.1';
 let cachedUrls = [
     '/',
 ];
@@ -12,7 +12,23 @@ self.addEventListener('install', function (event) {
   );
 });
 self.addEventListener('fetch', function (event) {
-  //
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      caches.match(event.request)
+        .then((cached) => {
+          var networked = fetch(event.request)
+            .then((response) => {
+              let cacheCopy = response.clone()
+              caches.open(cacheName)
+                .then(cache => cache.put(event.request, cacheCopy))
+              return response
+            })
+            .catch(() => caches.match('/'));
+          return cached || networked
+        })
+    )
+  }
+  return null
 });
 
 

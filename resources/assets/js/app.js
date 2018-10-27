@@ -1,3 +1,16 @@
+var swRegistration = null;
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+    navigator.serviceWorker.register('/sw.js')
+        .then(function(swReg) {
+            swRegistration = swReg;
+            console.log('registered');
+        })
+        .catch(function(error) {
+            console.error('Service Worker Error', error);
+        });
+} else {
+    console.warn('Push messaging is not supported');
+}
 
 /**
  * First we will load all of this project's JavaScript dependencies which
