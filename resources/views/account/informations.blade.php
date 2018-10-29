@@ -1,6 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
+    <div id="account_informations">
+        <div class="photo">
+            Photo de profil
+        </div>
+        <div class="progress">
+            <div role="progressbar" class="mdc-linear-progress">
+                <div class="mdc-linear-progress__buffering-dots"></div>
+                <div class="mdc-linear-progress__buffer"></div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="container">
     <h1>Mon profil</h1>
     <div class="row">

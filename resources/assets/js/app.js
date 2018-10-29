@@ -1,15 +1,15 @@
 var swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
-    navigator.serviceWorker.register('/sw.js')
-        .then(function(swReg) {
-            swRegistration = swReg;
-            console.log('registered');
-        })
-        .catch(function(error) {
-            console.error('Service Worker Error', error);
-        });
+  navigator.serviceWorker.register('/sw.js')
+    .then(function(swReg) {
+      swRegistration = swReg;
+      console.log('registered');
+    })
+    .catch(function(error) {
+      console.error('Service Worker Error', error);
+    });
 } else {
-    console.warn('Push messaging is not supported');
+  console.warn('Push messaging is not supported');
 }
 
 /**
@@ -33,7 +33,7 @@ Vue.component('push-component', require('./components/PushComponent.vue'));
 Vue.component('graph-component', require('./components/GraphComponent.vue'));
 
 const app = new Vue({
-    el: '#app'
+  el: '#app'
 });
 
 // Material
@@ -43,14 +43,14 @@ import {MDCTextFieldIcon} from '@material/textfield/icon';
 import {MDCTextFieldHelperText} from '@material/textfield/helper-text';
 
 $('.mdc-button').each(function(i, el) {
-    let buttonRipple = new MDCRipple(el);
+  let buttonRipple = new MDCRipple(el);
 });
 $('.mdc-text-field').each(function(i, el) {
-    let textField = new MDCTextField(el);
+  let textField = new MDCTextField(el);
 });
 $('.mdc-text-field-icon').each(function(i, el) {
-    let icon = new MDCTextFieldIcon(el);
+  let icon = new MDCTextFieldIcon(el);
 });
 $('.mdc-text-field-helper-text').each(function(i, el) {
-    let helperText = new MDCTextFieldHelperText(el);
+  let helperText = new MDCTextFieldHelperText(el);
 });
