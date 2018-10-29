@@ -55,10 +55,6 @@ class EventsController extends Controller
                     }
                 }
             }
-        } else {
-            return redirect()
-                ->route('clubs')
-                ->with('status', 'Ajoutez un club pour commencer');
         }
 
         $administratedClubsEvents = [];
